@@ -24,7 +24,6 @@ def geocode(address, api_key):
     response = requests.get(base_url, params=params)
     return response.json()
 
-# Replace 'your_api_key' with your actual API key
 result = geocode("1600 Amphitheatre Parkway, Mountain View, CA", api_key)
 # print(result)
 
@@ -47,7 +46,7 @@ def haversine(lon1, lat1, lon2, lat2):
     dlat = lat2 - lat1 
     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
     c = 2 * asin(sqrt(a)) 
-    r = 6371 # Radius of earth in kilometers. Use 3956 for miles. Determines return value units.
+    r = 3956 # Radius of earth in kilometers. Use 3956 for miles. use 6371 for kilometers. Determines return value units.
     return c * r
 
 
@@ -90,8 +89,7 @@ def get_elevation(lat, long):
     return elevation
 
 
-
-# Initialize highest elevation and corresponding point
+# Initialize highest elevation and corresponding point to none as a start
 highest_elevation = None
 highest_point = None
 
@@ -106,7 +104,7 @@ for point in pointslist:
         highest_elevation = elevation
         highest_point = point
 
-    # Respect API rate limits by sleeping
+    # Respect API rate limits by sleeping, protects api
     time.sleep(1)
 
 print(f"\nThe highest point is {highest_point} with an elevation of {highest_elevation} meters")
